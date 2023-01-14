@@ -6,7 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scaner = new Scanner(System.in);
 
-        char[][] board = {{' ', '|', ' ', '|', ' '},
+        char[][] board =
+               {{' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
                 {' ', '|', ' ', '|', ' '},
                 {'-', '+', '-', '+', '-'},
@@ -15,7 +16,6 @@ public class Main {
         Integer[] choices = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         int gameIteration = 8;
         int userInput;
-        boolean winnerFlag= true;
         String winner=null;
 
         while (true) {
@@ -24,7 +24,7 @@ public class Main {
                 System.out.println("Would you like to play? (1-9)");
                 userInput = scaner.nextInt();
                 if (choiceAvailability(userInput, choices)) {
-                    choiceInBoard(0, userInput, board);
+                    choiceInBoard('X', userInput, board);
                     printBoard(board);
                 } else {
                     System.out.println(userInput + " is not valid move ");
@@ -36,7 +36,7 @@ public class Main {
                 //Computer iteration
                 int randomNumber = randomNumberGeneration(choices);
                 System.out.println("Computer choose " + randomNumber);
-                choiceInBoard(1, randomNumber, board);
+                choiceInBoard('O', randomNumber, board);
                 printBoard(board);
 
             }
@@ -57,7 +57,7 @@ public class Main {
 
         //Display the winner
         if(winner.equals("X"))
-            System.out.println("Congratulations! well deserved ");
+            System.out.println("Congratulations! You win ");
         else if (winner.equals("O")) {
             System.out.println("Hard luck! Computer wins :(");
         } else
@@ -77,13 +77,7 @@ public class Main {
 
     }
 
-    public static void choiceInBoard(int userType, int userInput, char[][] board) {
-        char symbol;
-        if (userType == 0) {
-            symbol = 'X';
-        } else {
-            symbol = 'O';
-        }
+    public static void choiceInBoard(char symbol, int userInput, char[][] board) {
 
         switch (userInput) {
             case 1:
