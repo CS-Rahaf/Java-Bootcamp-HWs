@@ -1,0 +1,86 @@
+Create database store;
+
+CREATE table countries(
+     code int,
+     name varchar(20) unique,
+     continent_name varchar(20) NOT NULL,
+     PRIMARY KEY (code)
+);
+
+CREATE table users(
+     id int,
+     fullName varchar(20),
+     email varchar(20) unique,
+     gender char(1) check ( gender='m' or gender='f'),
+     date_of_birth varchar(15),
+     created_at datetime DEFAULT NOW(),
+     country_code int,
+     PRIMARY KEY (id),
+     FOREIGN KEY (country_code) REFERENCES countries(code)
+);
+
+CREATE table orders(
+     id int,
+     user_id int,
+     status varchar(6) check ( status='start' or status='finish' ),
+     created_at datetime DEFAULT NOW(),
+     PRIMARY KEY (id),
+     FOREIGN KEY (user_id) REFERENCES users(id)
+
+);
+
+CREATE table products(
+     id int,
+     name varchar(10) NOT NULL,
+     price int default 0,
+     status varchar(10) check ( status='valid' or status='expired' ),
+     created_at datetime DEFAULT NOW(),
+     PRIMARY KEY (id)
+);
+
+CREATE table order_products(
+     order_id int,
+     product_id int,
+     quantity int default 0,
+     FOREIGN KEY (order_id) REFERENCES orders(id),
+     FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+
+#Insert into countries table
+insert into countries values (20,'Medina','Asia');
+select * from countries;
+
+#Insert into users table
+insert into users (id, fullName, email, gender, date_of_birth, country_code)
+values(1,'Rahaf','rahaf@mail.com', 'f','1998-02-10',20);
+select * from users;
+
+#Insert into orders table
+insert into orders (id, user_id, status)
+values (1, 1,'start');
+select * from orders;
+
+#Insert into product table
+insert into products (id, name, price, status)
+values (1,'Cup', 100, 'valid');
+insert into products (id, name, price, status)
+values (2,'plate', 50, 'valid');
+select * from products;
+
+#Insert into order_products table
+insert into order_products values (1,1,20);
+select * from order_products;
+
+
+#Update name in countries table
+UPDATE countries
+SET name = 'Riyadh'
+WHERE code = 20;
+select * from countries;
+
+#Delete row in products table
+delete from products where id=2;
+select * from products;
+
+drop database store;
