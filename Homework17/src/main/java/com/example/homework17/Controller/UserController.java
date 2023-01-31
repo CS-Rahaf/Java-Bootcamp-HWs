@@ -28,44 +28,49 @@ private final UserService userService;
 
 
     @PostMapping("")
-    public ResponseEntity addUser(@Valid @RequestBody User user, Errors error){
-        if(error.hasErrors()){
-            String message= error.getFieldError().getDefaultMessage();
-            return ResponseEntity.status(400).body(message);
-        }
-
-
+    public ResponseEntity addUser(@Valid @RequestBody User user){
         userService.addUser(user);
         return ResponseEntity.status(200).body("User has been added Successfully");
     }
 
 
     @PutMapping("/{id}")
-    public ResponseEntity updateUser(@PathVariable Integer id, @Valid @RequestBody User user, Errors error){
-        if(error.hasErrors()){
-            String message= error.getFieldError().getDefaultMessage();
-            return ResponseEntity.status(400).body(message);
-        }
+    public ResponseEntity updateUser(@PathVariable Integer id, @Valid @RequestBody User user){
 
-        if(!userService.updateUser(id,user)){
-
-            return ResponseEntity.status(400).body("This user does not exit");
-        }
-
+        userService.updateUser(id,user);
         return ResponseEntity.status(200).body("User has been updated Successfully");
     }
 
 
     @DeleteMapping ("/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id){
-        if(!userService.deleteUser(id)){
-
-            return ResponseEntity.status(400).body("This user does not exit");
-        }
-
+        userService.deleteUser(id);
         return ResponseEntity.status(200).body("User has been deleted Successfully");
     }
 
+    @GetMapping("/roles")
+    public ResponseEntity getAllUsersByRole(@RequestParam(value = "value") String role){
+        List<User> users = userService.findUserByRole(role);
+        return ResponseEntity.status(200).body(users);
+    }
+
+    @GetMapping("/emails")
+    public ResponseEntity getAllUsersByEmail(@RequestParam(value = "value") String email){
+
+        return ResponseEntity.status(200).body(userService.findUserByEmail(email));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity findUserByUsernameAndPass(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password){
+       User user = userService.usernameAndPassMatching(username,password);
+        return ResponseEntity.status(200).body(user);
+    }
+
+    @GetMapping("/age")
+    public ResponseEntity findUsersGreaterThanAge(@RequestParam(value = "value") int age){
+        List<User> users = userService.findUserByAge(age);
+        return ResponseEntity.status(200).body(users);
+    }
 
 
 
