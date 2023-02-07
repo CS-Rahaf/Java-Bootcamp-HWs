@@ -21,12 +21,18 @@ public class TeacherController {
 
 
     @GetMapping("")
-    public ResponseEntity getTeacher(){
-        List<Teacher> Teachers= teacherService.getTeachers();
+    public ResponseEntity getTeachers(){
+        List<Teacher> teachers= teacherService.getTeachers();
 
-        return ResponseEntity.status(200).body(Teachers);
+        return ResponseEntity.status(200).body(teachers);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity getTeacher(@PathVariable Integer id){
+        Teacher teachers= teacherService.getTeacher(id);
+
+        return ResponseEntity.status(200).body(teachers);
+    }
 
     @PostMapping("")
     public ResponseEntity addTeacher(@Valid @RequestBody Teacher teacher){

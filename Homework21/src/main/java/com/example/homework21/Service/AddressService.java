@@ -20,6 +20,7 @@ public class AddressService {
 
 
     public List<Address> getAddresses(){
+
         return addressRepository.findAll();
     }
 
@@ -33,7 +34,7 @@ public class AddressService {
         return address;
     }
     public void addAddress(ObjectNode objectNode){
-        Integer teacherId = objectNode.get("userId").asInt();
+        Integer teacherId = objectNode.get("teacherId").asInt();
         Teacher teacher= teacherService.getTeacher(teacherId);
 
         String area = objectNode.get("area").asText();
