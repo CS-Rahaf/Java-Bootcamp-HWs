@@ -2,14 +2,15 @@ package com.example.homework21.ControllerAdvise;
 
 
 import com.example.homework21.Exception.ApiException;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestControllerAdvice
+@AllArgsConstructor
 public class AdviseController {
 
 
@@ -33,6 +34,5 @@ public class AdviseController {
         String message=e.getMessage();
         return ResponseEntity.status(400).body(message);
     }
-
 
 }

@@ -37,6 +37,9 @@ public class AddressService {
         Integer teacherId = objectNode.get("teacherId").asInt();
         Teacher teacher= teacherService.getTeacher(teacherId);
 
+        if(teacher.getAddress() != null){
+            throw new ApiException("A different object with the same identifier value was already associated with the teacher");
+        }
         String area = objectNode.get("area").asText();
         String street = objectNode.get("street").asText();
         Integer buildingNumber = objectNode.get("buildingNumber").asInt();
