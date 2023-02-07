@@ -27,6 +27,7 @@ public class TeacherController {
         return ResponseEntity.status(200).body(teachers);
     }
 
+    //First required endpoint
     @GetMapping("/{id}")
     public ResponseEntity getTeacher(@PathVariable Integer id){
         Teacher teachers= teacherService.getTeacher(id);

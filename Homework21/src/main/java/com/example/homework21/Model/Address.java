@@ -17,11 +17,11 @@ public class Address {
     private Integer id;
 
     @NotEmpty(message = "The area should not be empty")
-    @Column(columnDefinition = "varchar(20) not null unique")
+    @Column(columnDefinition = "varchar(20) not null")
     private String area;
 
     @NotEmpty(message = "The street should not be empty")
-    @Column(columnDefinition = "varchar(20) not null unique")
+    @Column(columnDefinition = "varchar(20) not null")
     private String street;
 
     private int buildingNumber;

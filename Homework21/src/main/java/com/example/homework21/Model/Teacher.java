@@ -1,5 +1,7 @@
 package com.example.homework21.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -8,6 +10,10 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,6 +42,12 @@ public class Teacher {
     @OneToOne(cascade = CascadeType.ALL , mappedBy= "teacher")
     @PrimaryKeyJoinColumn
     private Address address;
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+    private List<Course> courses;
+
+
 
 
 }
