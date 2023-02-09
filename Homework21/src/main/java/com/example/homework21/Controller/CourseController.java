@@ -2,6 +2,7 @@ package com.example.homework21.Controller;
 
 
 import com.example.homework21.Model.Course;
+import com.example.homework21.Model.Student;
 import com.example.homework21.Service.CourseService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.validation.Valid;
@@ -66,6 +67,12 @@ public class CourseController {
     public ResponseEntity getTeacherNameByCourseId(@PathVariable Integer id){
         String teacherName = courseService.getTeacherByCourseId(id);
         return ResponseEntity.status(200).body(teacherName);
+    }
+
+    @GetMapping("/{id}/students")
+    public ResponseEntity getStudentInCourse(@PathVariable Integer id){
+       List<Student> students = courseService.getStudentList(id);
+        return ResponseEntity.status(200).body(students);
     }
     
 }

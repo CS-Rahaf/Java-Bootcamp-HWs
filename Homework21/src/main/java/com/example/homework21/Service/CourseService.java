@@ -3,6 +3,7 @@ package com.example.homework21.Service;
 
 import com.example.homework21.Exception.ApiException;
 import com.example.homework21.Model.Course;
+import com.example.homework21.Model.Student;
 import com.example.homework21.Model.Teacher;
 import com.example.homework21.Repository.CourseRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -72,6 +73,13 @@ public class CourseService {
        String teacherName = course.getTeacher().getName();
         return teacherName;
     }
+
+    public List<Student> getStudentList(Integer id){
+        Course course = courseRepository.findCourseById(id);
+        List<Student> students = course.getStudents();
+        return students;
+    }
+
 
 
 }

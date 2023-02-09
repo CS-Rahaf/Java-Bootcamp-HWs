@@ -1,9 +1,9 @@
 package com.example.homework21.Model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Course {
+@Entity
+public class Student {
 
 
     @Id
@@ -27,15 +27,17 @@ public class Course {
     @Size(min = 2, message = "The name must be more than 2 character")
     private String name;
 
+    private int age;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Teacher teacher;
 
-    @ManyToMany
-    @JsonIgnore
-    private List<Student> students;
+    @NotEmpty(message = "The major should not be empty")
+    @Column(columnDefinition = "varchar(20) not null")
+    @Size(min = 2, message = "The major name must be more than 2 character")
+    private String major;
+
+
+    @ManyToMany(mappedBy = "students")
+    private List<Course> courseList;
 
 
 }
